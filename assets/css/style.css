@@ -484,6 +484,7 @@ label {
 /*	Subscribe
 	==================================================*/
 #subscribe {
+	background-color: #FFF;
 	text-align: center;
 }
 #subscribe .overview p.lead {
