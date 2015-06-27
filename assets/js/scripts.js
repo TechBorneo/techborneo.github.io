@@ -60,6 +60,7 @@
       e.preventDefault();
       e.stopPropagation();
 
+      // Disable
       jQuery('#email').prop('disabled', true);
       jQuery('#submit_button').val("Inviting...");
 
@@ -108,6 +109,12 @@
   /*  Slack Invite
   ================================================== */
   var slack_invite = function(email, completeCallback) {
+    if (email.trim() == "") {
+      alert("Please enter your email address");
+      completeCallback();
+      return;
+    }
+
     var apiDomain = "https://slack.sabah.io";
     var endpointUrl = "/team-invite.php";
 
