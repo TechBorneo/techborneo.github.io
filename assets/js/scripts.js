@@ -59,7 +59,14 @@
     jQuery('#subscribe_form').on("submit", function(e) {
       e.preventDefault();
       e.stopPropagation();
-      slack_invite(jQuery('#email').val());
+
+      jQuery('#email').prop('disabled', true);
+      jQuery('#submit_button').val("Inviting...");
+
+      slack_invite(jQuery('#email').val(), function() {
+        jQuery('#email').prop('disabled', false);
+        jQuery('#submit_button').val("Join TechBorneo");
+      });
     });
 
   });
@@ -100,7 +107,7 @@
 
   /*  Slack Invite
   ================================================== */
-  var slack_invite = function(email) {
+  var slack_invite = function(email, completeCallback) {
     var apiDomain = "https://slack.sabah.io";
     var endpointUrl = "/team-invite.php";
 
@@ -121,9 +128,11 @@
             alert("Please enter an valid email address");
           }
         }
+        completeCallback();
       },
       error: function(data) {
-        alert("Oops. Something went wrong. Please try again later.")
+        alert("Oops. Something went wrong. Please try again later.");
+        completeCallback();
       }
     });
   }
