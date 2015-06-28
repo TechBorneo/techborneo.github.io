@@ -47,13 +47,18 @@
       e.preventDefault();
       e.stopPropagation();
 
-      // Disable
-      jQuery('#email').prop('disabled', true);
-      jQuery('#submit_button').val("Inviting...");
+      var $emailInput   = jQuery('#email');
+      var $submitButton = jQuery('#submit_button');
 
-      slack_invite(jQuery('#email').val(), function() {
-        jQuery('#email').prop('disabled', false);
-        jQuery('#submit_button').val("Join TechBorneo");
+      // Disable input and change button text
+      $emailInput.prop('disabled', true);
+      $submitButton.prop('disabled', true);
+      $submitButton.val("Inviting...");
+
+      slack_invite($emailInput.val(), function() {
+        $emailInput.prop('disabled', false);
+        $submitButton.prop('disabled', false);
+        $submitButton.val("Join TechBorneo");
       });
     });
 
@@ -115,11 +120,15 @@
         if (data.ok) {
           $('#subscribe_modal').modal();
         } else {
-          if (data.error == "already_invited") {
-            alert("You have already been invited. Check your email.");
-          }
-          if (data.error == "invalid_email") {
-            alert("Please enter an valid email address");
+          switch(data.error) {
+            case "already_invited":
+              alert("You have already been invited. Check your email.");
+              break;
+            case "invalid_email":
+              alert("Please enter an valid email address");
+              break;
+            default:
+              alert("Oops. Something went wrong. Please try again later.");
           }
         }
         completeCallback();
