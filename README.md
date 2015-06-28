@@ -1,2 +1,2 @@
-# techborneo
-Tech Community In Borneo
+# TechBorneo Landing Page
+Main site for TechBorneo Community
