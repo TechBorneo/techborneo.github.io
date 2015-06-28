@@ -121,6 +121,9 @@
           $('#subscribe_modal').modal();
         } else {
           switch(data.error) {
+            case "already_in_team":
+              alert("You are already in the community. Go to techborneo.slack.com to login.");
+              break;
             case "already_invited":
               alert("You have already been invited. Check your email.");
               break;
